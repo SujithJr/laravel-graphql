@@ -1,0 +1,10 @@
+extend type Query @middleware(checks: ["auth:api"]) {
+    me: User @auth(guard: "api")
+
+    "Displays array of users"
+    users: [User!]! @all
+    # users: [User!]! @field(resolver: "App\\GraphQL\\Queries\\UserQuery@all")
+
+    user(id: ID! @eq): User @find
+    # user(id: ID!): User @field(resolver: "App\\GraphQL\\Queries\\UserQuery@findSingle")
+}

@@ -1,0 +1,9 @@
+extend type Mutation {
+    login(input: loginInputFields @spread): UserPayload! @field(resolver: "AuthMutation@login")
+    logout: LogoutResponse! @field(resolver: "AuthMutation@logout") @middleware(checks: ["auth:api"])
+}
+
+input loginInputFields {
+    email: String! @rules(apply: ["required", "max:255"], messages: {required: "Name field is required", max: "Exceeded max characters"})
+    password: String! @rules(apply: ["required", "max:255"], messages: {max: "Exceeded max characters"})
+}

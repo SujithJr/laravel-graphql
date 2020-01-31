@@ -1,0 +1,6 @@
+extend type Query @middleware(checks: ["auth:api"]) {
+    post(id: ID! @eq): Post @find
+
+    posts: [Post!] @paginate(defaultCount: 5, type: "connection")
+    # posts: [Post!] @paginate(defaultCount: 5)
+}

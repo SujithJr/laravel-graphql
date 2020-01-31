@@ -1,0 +1,40 @@
+"Schema for User table/model"
+type User {
+    "This is ID of User"
+    id: ID!
+    name: String!
+    "User's email address"
+    email: String!
+    posts: [Post!] @hasMany(type: "paginator")
+    created_at: String!
+    updated_at: String!
+}
+
+"Schema for Post table/model"
+type Post {
+    id: ID!
+    title: String!
+    content: String!
+    user: User! @belongsTo
+}
+
+type UserPayload {
+    user: User!
+    token: String!
+}
+
+type LogoutResponse {
+    message: String!
+}
+
+"This is the root Query type"
+type Query
+
+"This is the root Mutation type"
+type Mutation
+
+#import ./User/query.graphql
+#import ./Post/query.graphql
+
+#import ./Post/mutation.graphql
+#import ./Auth/mutation.graphql

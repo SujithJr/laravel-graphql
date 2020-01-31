@@ -1,0 +1,21 @@
+extend type Mutation @middleware(checks: ["auth:api"]) {
+    createPost(input: createPostFields @spread): Post @create
+    updatePost(input: updatePostFields! @spread): Post @update
+    deletePost(input: deletePostFields! @spread): Post @delete
+}
+
+input createPostFields {
+    user_id: ID!
+    title: String! @rules(apply: ["required", "min:2", "max:255"], messages: {min: "There should be minimum, of 2 characters", max: "Max. length of characters exceeded"})
+    content: String! @rules(apply: ["required", "min:2", "max:255"], messages: {min: "There should be minimum, of 2 characters", max: "Max. length of characters exceeded"})
+}
+
+input updatePostFields {
+    id: ID!
+    title: String @rules(apply: ["min:2", "max:255"], messages: {min: "There should be minimum, of 2 characters", max: "Max. length of characters exceeded"})
+    content: String @rules(apply: ["min:2", "max:255"], messages: {min: "There should be minimum, of 2 characters", max: "Max. length of characters exceeded"})
+}
+
+input deletePostFields {
+    id: ID!
+}
